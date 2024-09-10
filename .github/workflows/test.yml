@@ -27,7 +27,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.23'
+          go-version: '1.22'
 
       - name: Install task
         uses: arduino/setup-task@v2
@@ -37,6 +37,9 @@ jobs:
 
       - name: Generate mocks
         run: task generate-mocks
+
+      - name: Build web application
+        run: task build-webapp
 
       - name: Run unit tests
         run: task run-tests

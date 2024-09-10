@@ -47,6 +47,16 @@ tasks:
                     -X 'main.Mode={{.MODE}}'" \
           ./cmd/terralist/main.go
       - echo "[>] Executable wrote to '{{ .BINARY_FILE_NAME }}'."
+  
+
+  build-webapp:
+    summary: "Install web dependencies"
+    silent: true
+    cmds:
+      - echo "[>] Installing web application dependencies."
+      - yarn --cwd ./web install
+      - echo "[>] Building web application."
+      - yarn --cwd ./web build
 
   generate-mocks:
     summary: "Generate interface mocks."
@@ -54,10 +64,6 @@ tasks:
     vars:
       MOCKERY_ARGS: '--all --case underscore --note "go:build mocks"'
     cmds:
-      - echo "[>] Installing web application dependencies."
-      - yarn --cwd ./web install
-      - echo "[>] Building web application."
-      - yarn --cwd ./web build
       - mockery --dir ./internal/server/services --output ./mocks/server/services {{.MOCKERY_ARGS}}
       - mockery --dir ./internal/server/repositories --output ./mocks/server/repositories {{.MOCKERY_ARGS}}
       - mockery --dir ./pkg/auth --output ./mocks/pkg/auth {{.MOCKERY_ARGS}}
