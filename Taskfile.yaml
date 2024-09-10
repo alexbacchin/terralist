@@ -67,7 +67,8 @@ tasks:
     vars:
       WITH_SUMMARY: '{{eq .CLI_ARGS "summary"}}'
       ALL_PACKAGES:
-        sh: "go list ./..."
+        sh: >- 
+          go list ./...
       TEST_EXCLUSIONS: '{{list "mocks" "cmd" "models" | join "|"}}'
       TEST_PACKAGES:
         sh: >-
